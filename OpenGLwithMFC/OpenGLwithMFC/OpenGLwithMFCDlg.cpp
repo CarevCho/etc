@@ -110,15 +110,16 @@ BOOL COpenGLwithMFCDlg::OnInitDialog()
 		return -1;
 	}
 	
+	/*
 	// OpenGL 3.x
 	GLuint shaderProgram;
 	defineVAO(vao, shaderProgram);
 
 	glUseProgram(shaderProgram);
 	glBindVertexArray(vao);
+	*/
 
-
-	//angle = 0;
+	angle = 0;
 	SetTimer(1000, 30, NULL);
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
@@ -178,7 +179,7 @@ HCURSOR COpenGLwithMFCDlg::OnQueryDragIcon()
 void COpenGLwithMFCDlg::OnTimer(UINT_PTR nIDEvent)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
-	/*
+	
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glLoadIdentity();
@@ -201,9 +202,11 @@ void COpenGLwithMFCDlg::OnTimer(UINT_PTR nIDEvent)
 
 	//화면 업데이트
 	SwapBuffers(m_pDC->GetSafeHdc());
-	*/
-	CDialogEx::OnTimer(nIDEvent);
 
+	CDialogEx::OnTimer(nIDEvent);
+	
+
+	/*
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
@@ -214,6 +217,7 @@ void COpenGLwithMFCDlg::OnTimer(UINT_PTR nIDEvent)
 	SwapBuffers(m_pDC->GetSafeHdc());
 
 	CDialogEx::OnTimer(nIDEvent);
+	*/
 }
 
 
@@ -222,7 +226,7 @@ void COpenGLwithMFCDlg::OnDestroy()
 	CDialogEx::OnDestroy();
 
 	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
-	glDeleteVertexArrays(1, &vao);
+	//glDeleteVertexArrays(1, &vao);
 
 	if (FALSE == ::wglDeleteContext(m_hRC))
 	{
@@ -251,32 +255,36 @@ BOOL COpenGLwithMFCDlg::GetRenderingContext()
 	{
 		return TRUE;
 	}
-
+	
+	/*
 	//Get access to modern OpenGL functionality from this old style context.
 	glewExperimental = GL_TRUE;
+	*/
 	if (GLEW_OK != glewInit())
 	{
 		AfxMessageBox(CString("GLEW could not be initialized!"));
 		return FALSE;
 	}
+	/*
 	//Get a new style pixel format
 	if (!SetupPixelFormat())
 	{
 		return FALSE;
 	}
+	*/
 
 
 	//참고 http://gamedev.stackexchange.com/a/30443
 	GLint attribs[] =
 	{
-		/*
 		// Here we ask for OpenGL 2.1
 		WGL_CONTEXT_MAJOR_VERSION_ARB, 2,
 		WGL_CONTEXT_MINOR_VERSION_ARB, 1,
-		*/
+		/*
 		// Here we ask for OpenGL 3.3
 		WGL_CONTEXT_MAJOR_VERSION_ARB, 3,
 		WGL_CONTEXT_MINOR_VERSION_ARB, 3,
+		*/
 		// Uncomment this for forward compatibility mode
 		//WGL_CONTEXT_FLAGS_ARB, WGL_CONTEXT_FORWARD_COMPATIBLE_BIT_ARB,
 		// Uncomment this for Compatibility profile
@@ -354,7 +362,7 @@ BOOL COpenGLwithMFCDlg::GetOldStyleRenderingContext()
 	return TRUE;
 }
 
-
+/*
 void COpenGLwithMFCDlg::defineVAO(GLuint &vao, GLuint &shaderProgram)
 {
 	glGenVertexArrays(1, &vao);
@@ -469,7 +477,7 @@ GLuint COpenGLwithMFCDlg::create_program() {
 	}
 
 	return shaderProgram;
-}
+}*/
 
 
 BOOL COpenGLwithMFCDlg::SetupPixelFormat()

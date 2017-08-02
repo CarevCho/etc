@@ -7,13 +7,13 @@
 // including OpenGL header
 #include "GL\glew.h"
 #include "GL\wglew.h"
-//#include "freeglut.h"
+#include "freeglut.h"
 //#include "freeglut_ext.h"
 #include "afxwin.h"
 
 // add to be used library
-//#pragma comment(lib, "freeglut.lib")
-#pragma comment(lib, "OpenGL32.lib")
+#pragma comment(lib, "freeglut.lib")
+//#pragma comment(lib, "OpenGL32.lib")
 #pragma comment(lib, "glew32.lib")
 
 // COpenGLwithMFCDlg 대화 상자
@@ -54,10 +54,10 @@ private:
 	HGLRC     m_hRC;
 	CDC*      m_pDC;
 
-	//float angle;
-	GLuint vao;
-	void defineVAO(GLuint &vao, GLuint &shaderProgram);
-	GLuint create_program();
+	float angle;
+	//GLuint vao;
+	//void defineVAO(GLuint &vao, GLuint &shaderProgram);
+	//GLuint create_program();
 
 public:
 	// control variable about IDC_PICTURE, to draw OpenGL
