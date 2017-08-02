@@ -32,5 +32,6 @@ int main(int argc, char* argv[])
 	t = (double)(stop - start);
 
 	printf("Run time : %f milli second\n", t);
+
 	return 0;
 }
