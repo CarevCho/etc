@@ -106,7 +106,6 @@ BOOL CMFC_timerDlg::OnInitDialog()
 	SetTimer(TIMER1, 1000 / 2, NULL);
 	SetTimer(TIMER2, 1000 , NULL);
 
-
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
 
