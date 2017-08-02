@@ -102,6 +102,8 @@ BOOL CMFC_timerDlg::OnInitDialog()
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
 	m_t_c_1 = m_t_c_2 = 0;
+	SetDlgItemInt(IDC_TIMER_1, m_t_c_1);
+	SetDlgItemInt(IDC_TIMER_2, m_t_c_2);
 
 	SetTimer(TIMER1, 1000 / 2, NULL);
 	SetTimer(TIMER2, 1000 , NULL);

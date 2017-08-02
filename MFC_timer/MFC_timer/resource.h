@@ -8,7 +8,6 @@
 #define IDD_MFC_TIMER_DIALOG            102
 #define IDR_MAINFRAME                   128
 #define IDC_TIMER_1                     1000
-#define IDC_EDIT2                       1001
 #define IDC_TIMER_2                     1001
 
 // Next default values for new objects
