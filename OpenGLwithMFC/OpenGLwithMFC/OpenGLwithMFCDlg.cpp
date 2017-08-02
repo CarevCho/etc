@@ -109,8 +109,16 @@ BOOL COpenGLwithMFCDlg::OnInitDialog()
 		AfxMessageBox(CString("OpenGL 초기화중 에러가 발생하여 프로그램을 실행할 수 없습니다."));
 		return -1;
 	}
+	
+	// OpenGL 3.x
+	GLuint shaderProgram;
+	defineVAO(vao, shaderProgram);
 
-	angle = 0;
+	glUseProgram(shaderProgram);
+	glBindVertexArray(vao);
+
+
+	//angle = 0;
 	SetTimer(1000, 30, NULL);
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
@@ -170,6 +178,7 @@ HCURSOR COpenGLwithMFCDlg::OnQueryDragIcon()
 void COpenGLwithMFCDlg::OnTimer(UINT_PTR nIDEvent)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
+	/*
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glLoadIdentity();
@@ -192,6 +201,17 @@ void COpenGLwithMFCDlg::OnTimer(UINT_PTR nIDEvent)
 
 	//화면 업데이트
 	SwapBuffers(m_pDC->GetSafeHdc());
+	*/
+	CDialogEx::OnTimer(nIDEvent);
+
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
+
+
+	glDrawArrays(GL_TRIANGLES, 0, 3);
+
+	//화면 업데이트
+	SwapBuffers(m_pDC->GetSafeHdc());
 
 	CDialogEx::OnTimer(nIDEvent);
 }
@@ -202,6 +222,8 @@ void COpenGLwithMFCDlg::OnDestroy()
 	CDialogEx::OnDestroy();
 
 	// TODO: 여기에 메시지 처리기 코드를 추가합니다.
+	glDeleteVertexArrays(1, &vao);
+
 	if (FALSE == ::wglDeleteContext(m_hRC))
 	{
 		AfxMessageBox(CString("wglDeleteContext failed"));
@@ -230,9 +252,16 @@ BOOL COpenGLwithMFCDlg::GetRenderingContext()
 		return TRUE;
 	}
 
+	//Get access to modern OpenGL functionality from this old style context.
+	glewExperimental = GL_TRUE;
 	if (GLEW_OK != glewInit())
 	{
 		AfxMessageBox(CString("GLEW could not be initialized!"));
+		return FALSE;
+	}
+	//Get a new style pixel format
+	if (!SetupPixelFormat())
+	{
 		return FALSE;
 	}
 
@@ -240,9 +269,14 @@ BOOL COpenGLwithMFCDlg::GetRenderingContext()
 	//참고 http://gamedev.stackexchange.com/a/30443
 	GLint attribs[] =
 	{
+		/*
 		// Here we ask for OpenGL 2.1
 		WGL_CONTEXT_MAJOR_VERSION_ARB, 2,
 		WGL_CONTEXT_MINOR_VERSION_ARB, 1,
+		*/
+		// Here we ask for OpenGL 3.3
+		WGL_CONTEXT_MAJOR_VERSION_ARB, 3,
+		WGL_CONTEXT_MINOR_VERSION_ARB, 3,
 		// Uncomment this for forward compatibility mode
 		//WGL_CONTEXT_FLAGS_ARB, WGL_CONTEXT_FORWARD_COMPATIBLE_BIT_ARB,
 		// Uncomment this for Compatibility profile
@@ -317,5 +351,167 @@ BOOL COpenGLwithMFCDlg::GetOldStyleRenderingContext()
 		AfxMessageBox(CString("wglMakeCurrent failed"));
 		return FALSE;
 	}
+	return TRUE;
+}
+
+
+void COpenGLwithMFCDlg::defineVAO(GLuint &vao, GLuint &shaderProgram)
+{
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
+
+	float position[] = {
+		0.0f,  0.5f, 0.0f, //vertex 1
+		0.5f, -0.5f, 0.0f, //vertex 2
+		-0.5f, -0.5f, 0.0f //vertex 3
+	};
+
+	float color[] = {
+		1.0f, 0.0f, 0.0f, //vertex 1 : RED (1,0,0)
+		0.0f, 1.0f, 0.0f, //vertex 2 : GREEN (0,1,0) 
+		0.0f, 0.0f, 1.0f  //vertex 3 : BLUE (0,0,1)
+	};
+
+
+
+	GLuint position_vbo, color_vbo;
+
+	glGenBuffers(1, &position_vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, position_vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(position), position, GL_STATIC_DRAW);
+
+	glGenBuffers(1, &color_vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, color_vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(color), color, GL_STATIC_DRAW);
+
+
+	shaderProgram = create_program();
+
+	GLint position_attribute = glGetAttribLocation(shaderProgram, "position");
+	glBindBuffer(GL_ARRAY_BUFFER, position_vbo);
+	glVertexAttribPointer(position_attribute, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(position_attribute);
+
+	GLint color_attribute = glGetAttribLocation(shaderProgram, "color");
+	glBindBuffer(GL_ARRAY_BUFFER, color_vbo);
+	glVertexAttribPointer(color_attribute, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(color_attribute);
+
+	glBindVertexArray(0);
+}
+
+
+
+GLuint COpenGLwithMFCDlg::create_program() {
+
+	const GLchar* vertexShaderSource =
+		"#version 330 core\n"
+		"in vec3 position;"
+		"in vec3 color;"
+		"out vec3 color_from_vshader;"
+		"void main()"
+		"{"
+		"gl_Position = vec4(position, 1.0);"
+		"color_from_vshader = color;"
+		"}";
+
+	const GLchar* fragmentShaderSource =
+		"#version 330 core\n"
+		"in vec3 color_from_vshader;"
+		"out vec4 out_color;"
+		"void main()"
+		"{"
+		"out_color = vec4(color_from_vshader, 1.0);"
+		"}";
+
+
+	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+	glCompileShader(vertexShader);
+
+	GLint success;
+	GLchar infoLog[512];
+
+	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+	if (!success)
+	{
+		glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+		TRACE(CString("ERROR: vertex shader 컴파일 실패 ") + CString(infoLog) + CString("\n"));
+	}
+
+	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+	glCompileShader(fragmentShader);
+
+	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+	if (!success)
+	{
+		glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
+		TRACE(CString("ERROR: fragment shader 컴파일 실패 ") + CString(infoLog) + CString("\n"));
+	}
+
+
+	GLuint shaderProgram = glCreateProgram();
+	glAttachShader(shaderProgram, vertexShader);
+	glAttachShader(shaderProgram, fragmentShader);
+
+	glDeleteShader(vertexShader);
+	glDeleteShader(fragmentShader);
+
+	glLinkProgram(shaderProgram);
+
+
+	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+	if (!success) {
+		glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
+
+		TRACE(CString("ERROR: shader program 연결 실패 ") + CString(infoLog) + CString("\n"));
+	}
+
+	return shaderProgram;
+}
+
+
+BOOL COpenGLwithMFCDlg::SetupPixelFormat()
+{
+	//This is a modern pixel format attribute list.
+	//It has an extensible structure. Just add in more argument pairs 
+	//befroe the null to request more features.
+	const int attribList[] =
+	{
+		WGL_DRAW_TO_WINDOW_ARB, GL_TRUE,
+		WGL_SUPPORT_OPENGL_ARB, GL_TRUE,
+		WGL_ACCELERATION_ARB,   WGL_FULL_ACCELERATION_ARB,
+		WGL_DOUBLE_BUFFER_ARB,  GL_TRUE,
+		WGL_PIXEL_TYPE_ARB,     WGL_TYPE_RGBA_ARB,
+		WGL_COLOR_BITS_ARB,     32,
+		WGL_DEPTH_BITS_ARB,     24,
+		WGL_STENCIL_BITS_ARB,   8,
+		0, 0  //End
+	};
+
+
+	unsigned int numFormats;
+	int pixelFormat;
+	PIXELFORMATDESCRIPTOR pfd;
+
+	//Select a pixel format number
+	wglChoosePixelFormatARB(m_pDC->GetSafeHdc(), attribList, NULL, 1, &pixelFormat, &numFormats);
+
+	//Optional: Get the pixel format's description. We must provide a 
+	//description to SetPixelFormat(), but its contents mean little.
+	//According to MSDN: 
+	//  The system's metafile component uses this structure to record the logical
+	//  pixel format specification. The structure has no other effect upon the
+	//  behavior of the SetPixelFormat function.
+	//DescribePixelFormat(m_pDC->GetSafeHdc(), pixelFormat, sizeof(PIXELFORMATDESCRIPTOR), &pfd);
+
+	//Set it as the current 
+	if (FALSE == SetPixelFormat(m_pDC->GetSafeHdc(), pixelFormat, &pfd))
+	{
+		AfxMessageBox(CString("SelectPixelFormat failed"));
+		return FALSE;
+	}
+
 	return TRUE;
 }
