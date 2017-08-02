@@ -1,0 +1,16 @@
+heads[0].det[0] to heads[2].det[0] : 0.000002,108.434952
+heads[0].det[0] to heads[2].det[1] : -1.999998,90.000000
+heads[0].det[1] to heads[2].det[0] : 2.000002,90.000000
+heads[0].det[1] to heads[2].det[1] : -0.000002,71.565086
+heads[1].det[0] to heads[3].det[0] : -0.000002,18.434988
+heads[1].det[0] to heads[3].det[1] : 1.999998,0.000036
+heads[1].det[1] to heads[3].det[0] : -2.000002,0.000036
+heads[1].det[1] to heads[3].det[1] : -0.000002,161.565079
+heads[2].det[0] to heads[0].det[0] : 0.000002,108.434952
+heads[2].det[0] to heads[0].det[1] : 2.000002,90.000000
+heads[2].det[1] to heads[0].det[0] : -1.999998,90.000000
+heads[2].det[1] to heads[0].det[1] : -0.000002,71.565086
+heads[3].det[0] to heads[1].det[0] : -0.000002,18.434988
+heads[3].det[0] to heads[1].det[1] : -2.000002,0.000036
+heads[3].det[1] to heads[1].det[0] : 1.999998,0.000036
+heads[3].det[1] to heads[1].det[1] : -0.000002,161.565079
