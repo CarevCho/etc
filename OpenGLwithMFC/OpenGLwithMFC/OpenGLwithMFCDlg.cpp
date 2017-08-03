@@ -119,7 +119,8 @@ BOOL COpenGLwithMFCDlg::OnInitDialog()
 	glBindVertexArray(vao);
 	*/
 
-	angle = 0;
+	//angle = 0;
+	m_alpha = m_beta = m_gamma = 0;
 	SetTimer(1000, 30, NULL);
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
@@ -180,13 +181,16 @@ void COpenGLwithMFCDlg::OnTimer(UINT_PTR nIDEvent)
 {
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
 	
-	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	glLoadIdentity();
 
 	//z축을 중심으로 설정된 angle로 회전한다.
-	glRotatef(angle, 0.0f, 0.0f, 1.0f);
+	glRotatef(m_alpha, 0.0f, 0.0f, 1.0f);
+	glRotatef(m_beta, 0.f, 1.f, 0.f);
+	glRotatef(m_gamma, 1.f, 0.f, 0.f);
 
+	/*
 	//중앙이 원점에 오도록 삼각형을 그린다. 
 	glBegin(GL_TRIANGLES); //3점이 하나의 삼각형을 구성한다. 반시계 방향으로 3점의 vertex를 지정해줘야 한다.
 	glColor3f(1.0f, 0.0f, 0.0f); //빨간색 지정
@@ -196,9 +200,25 @@ void COpenGLwithMFCDlg::OnTimer(UINT_PTR nIDEvent)
 	glColor3f(0.0f, 0.0f, 1.0f); //파란색 지정
 	glVertex3f(0.0f, 0.5f, 0.0f);    // 위쪽 vertex
 	glEnd();
+	*/
 
+	glLineWidth(10);
+	glBegin(GL_LINES);
+	glColor3f(1, 0, 0);
+	glVertex3f(-0.5,0,  0);
+	glVertex3f(0.5,0,  0);
+	glColor3f(0, 1, 0);
+	glVertex3f(0, -0.5, 0);
+	glVertex3f(0, 0.5, 0);
+	glColor3f(0, 0, 1);
+	glVertex3f(0, 0, -0.5);
+	glVertex3f(0, 0, 0.5);
+	glEnd();
+
+	
+	
 	//삼각형 회전각 증가
-	angle += 0.5f;
+	//m_alpha += 0.5f;
 
 	//화면 업데이트
 	SwapBuffers(m_pDC->GetSafeHdc());
@@ -522,4 +542,27 @@ BOOL COpenGLwithMFCDlg::SetupPixelFormat()
 	}
 
 	return TRUE;
+}
+
+
+BOOL COpenGLwithMFCDlg::PreTranslateMessage(MSG* pMsg)
+{
+	// TODO: 여기에 특수화된 코드를 추가 및/또는 기본 클래스를 호출합니다.
+	if (pMsg->message == WM_KEYDOWN) {
+		switch (pMsg->wParam)
+		{
+		case 65:
+			m_alpha += 0.5;
+			break;
+		case 66:
+			m_beta += 0.5;
+			break;
+		case 67:
+			m_gamma += 0.5;
+			break;
+		default:
+			break;
+		}
+	}
+	return CDialogEx::PreTranslateMessage(pMsg);
 }

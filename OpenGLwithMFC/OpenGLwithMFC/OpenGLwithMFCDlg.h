@@ -54,7 +54,9 @@ private:
 	HGLRC     m_hRC;
 	CDC*      m_pDC;
 
-	float angle;
+	float m_alpha;
+	float m_beta;
+	float m_gamma;
 	//GLuint vao;
 	//void defineVAO(GLuint &vao, GLuint &shaderProgram);
 	//GLuint create_program();
@@ -64,4 +66,5 @@ public:
 	CStatic m_picture;
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnDestroy();
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 };
