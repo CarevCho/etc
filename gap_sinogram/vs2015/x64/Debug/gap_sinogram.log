@@ -1,36 +1,26 @@
-﻿  rotation.cpp
-d:\mmmil\git\recon\gap_sinogram\src\rotation.cpp(10): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-d:\mmmil\git\recon\gap_sinogram\src\rotation.cpp(20): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-d:\mmmil\git\recon\gap_sinogram\src\rotation.cpp(35): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\mmmil\git\recon\gap_sinogram\src\rotation.cpp(36): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\mmmil\git\recon\gap_sinogram\src\rotation.cpp(56): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\mmmil\git\recon\gap_sinogram\src\rotation.cpp(57): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  main.cpp
-  gap_sino.cpp
-d:\mmmil\git\recon\gap_sinogram\src\gap_sino.cpp(19): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-d:\mmmil\git\recon\gap_sinogram\src\gap_sino.cpp(23): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-d:\mmmil\git\recon\gap_sinogram\src\gap_sino.cpp(43): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\mmmil\git\recon\gap_sinogram\src\gap_sino.cpp(44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\mmmil\git\recon\gap_sinogram\src\gap_sino.cpp(48): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-d:\mmmil\git\recon\gap_sinogram\src\gap_sino.cpp(68): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-d:\mmmil\git\recon\gap_sinogram\src\gap_sino.cpp(69): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-d:\mmmil\git\recon\gap_sinogram\src\gap_sino.cpp(107): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\mmmil\git\recon\gap_sinogram\src\gap_sino.cpp(109): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\mmmil\git\recon\gap_sinogram\src\gap_sino.cpp(115): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-d:\mmmil\git\recon\gap_sinogram\src\gap_sino.cpp(143): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-d:\mmmil\git\recon\gap_sinogram\src\gap_sino.cpp(144): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\mmmil\git\recon\gap_sinogram\src\gap_sino.cpp(146): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-d:\mmmil\git\recon\gap_sinogram\src\gap_sino.cpp(148): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-d:\mmmil\git\recon\gap_sinogram\src\gap_sino.cpp(151): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-d:\mmmil\git\recon\gap_sinogram\src\gap_sino.cpp(172): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\mmmil\git\recon\gap_sinogram\src\gap_sino.cpp(173): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\mmmil\git\recon\gap_sinogram\src\gap_sino.cpp(177): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-d:\mmmil\git\recon\gap_sinogram\src\gap_sino.cpp(197): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-d:\mmmil\git\recon\gap_sinogram\src\gap_sino.cpp(198): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-d:\mmmil\git\recon\gap_sinogram\src\gap_sino.cpp(236): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\mmmil\git\recon\gap_sinogram\src\gap_sino.cpp(238): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-d:\mmmil\git\recon\gap_sinogram\src\gap_sino.cpp(248): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-d:\mmmil\git\recon\gap_sinogram\src\gap_sino.cpp(272): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  Generating Code...
-  gap_sinogram.vcxproj -> D:\MMMIL\git\recon\gap_sinogram\vs2015\x64\Debug\gap_sinogram.exe
-  gap_sinogram.vcxproj -> D:\MMMIL\git\recon\gap_sinogram\vs2015\x64\Debug\gap_sinogram.pdb (Full PDB)
+﻿  gap_sino.cpp
+d:\mmmil\project\etc\gap_sinogram\src\gap_sino.cpp(27): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+d:\mmmil\project\etc\gap_sinogram\src\gap_sino.cpp(47): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\mmmil\project\etc\gap_sinogram\src\gap_sino.cpp(48): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\mmmil\project\etc\gap_sinogram\src\gap_sino.cpp(52): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+d:\mmmil\project\etc\gap_sinogram\src\gap_sino.cpp(72): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+d:\mmmil\project\etc\gap_sinogram\src\gap_sino.cpp(73): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\mmmil\project\etc\gap_sinogram\src\gap_sino.cpp(111): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\mmmil\project\etc\gap_sinogram\src\gap_sino.cpp(113): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\mmmil\project\etc\gap_sinogram\src\gap_sino.cpp(119): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+d:\mmmil\project\etc\gap_sinogram\src\gap_sino.cpp(160): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+d:\mmmil\project\etc\gap_sinogram\src\gap_sino.cpp(161): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\mmmil\project\etc\gap_sinogram\src\gap_sino.cpp(166): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+d:\mmmil\project\etc\gap_sinogram\src\gap_sino.cpp(169): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+d:\mmmil\project\etc\gap_sinogram\src\gap_sino.cpp(175): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+d:\mmmil\project\etc\gap_sinogram\src\gap_sino.cpp(203): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\mmmil\project\etc\gap_sinogram\src\gap_sino.cpp(204): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\mmmil\project\etc\gap_sinogram\src\gap_sino.cpp(208): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+d:\mmmil\project\etc\gap_sinogram\src\gap_sino.cpp(231): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+d:\mmmil\project\etc\gap_sinogram\src\gap_sino.cpp(232): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+d:\mmmil\project\etc\gap_sinogram\src\gap_sino.cpp(270): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\mmmil\project\etc\gap_sinogram\src\gap_sino.cpp(272): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+d:\mmmil\project\etc\gap_sinogram\src\gap_sino.cpp(282): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+d:\mmmil\project\etc\gap_sinogram\src\gap_sino.cpp(306): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  gap_sinogram.vcxproj -> D:\MMMIL\Project\etc\gap_sinogram\vs2015\x64\Debug\gap_sinogram.exe
+  gap_sinogram.vcxproj -> D:\MMMIL\Project\etc\gap_sinogram\vs2015\x64\Debug\gap_sinogram.pdb (Full PDB)

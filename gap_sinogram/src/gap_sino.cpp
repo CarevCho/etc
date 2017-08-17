@@ -12,11 +12,15 @@
 */
 void gap_sino(int head_num,float detector_width,float xrSampling_mm ,int detector_num, float gap_angle,int imageWidth,char* filename)
 { 
+	// total number of detector
 	int totalDetectorNum=0;
+	// interval between views
 	float rtheta = 0; 
 	//int xrNum = (2 * int(sqrt(2 * pow(imageWidth / 2, 2))) + 5);
 	// In Matlab , int xrNum = 2 * round(sqrt(2 * pow(imageWidth - round(((imageWidth - 1) / 2.)-0.5) - 1, 2)) + 0.5) + 3;
-	int xrNum = 2 * round(sqrt(2 * pow(imageWidth - round(((imageWidth - 1) / 2.) - 0.5) - 1, 2)) + 0.5) + 3;
+	
+	// xrNum is total radial range
+	int xrNum = 2 * int(round(sqrt(2 * pow(imageWidth - round(((imageWidth - 1) / 2.) - 0.5) - 1, 2)) + 0.5)) + 3;
 	int limitRadial = imageWidth / 2;
 
 	float head_size = detector_num*detector_width;	///< calculate a head size according to detector number and width
@@ -135,39 +139,66 @@ void gap_sino(int head_num,float detector_width,float xrSampling_mm ,int detecto
 	printf("rtheta : %f\n", rtheta);
 }
 
-
+/**
+*
+* Make physical sinogram
+* 
+* @param head_num : Number of head.
+* @param detector_width : Each width of detector
+* @param xrSampling_mm : xrSampling interval
+* @param detector_num : Number of detector in a head
+* @param dis_head : Distance between opposite head to head
+* @param filename : Name that save to file ( binaray format )
+*/
 void gap_sino(int head_num, float detector_width, float xrSampling_mm, int detector_num, float dis_head, char* filename)
 {
+	// total number of detector in system
 	int totalDetectorNum = 0;
+	// interval between views
 	float rtheta = 0;
-	float imageWidth = round(sqrt(2 * pow(dis_head / 2.f, 2))/xrSampling_mm - 0.5)*xrSampling_mm;
+	// reconstruction image size with input parameter system.
+	float imageWidth = round( sqrt(2 * pow(dis_head / 2.f, 2)) / xrSampling_mm - 0.5) * xrSampling_mm;
 	imageWidth = round((imageWidth / xrSampling_mm) / 2. - 0.5)*2.;
+	
 	// In Matlab , int xrNum = 2 * round(sqrt(2 * pow(imageWidth - round(((imageWidth - 1) / 2.)-0.5) - 1, 2)) + 0.5) + 3;
+	
+	// total number of radials
 	int xrNum = 2 * round(sqrt(2 * pow(imageWidth - round(((imageWidth - 1) / 2.)-0.5) - 1, 2)) + 0.5) + 3;
 	printf("# of radial element : %d\n", xrNum);
-	int limitRadial = imageWidth / 2;
+	// radial limit between minus and plus diagonal direction
+	int limitRadial = imageWidth / 2;	
 
-	float head_size = detector_num*detector_width;	///< calculate a head size according to detector number and width
+	// each head size
+	float head_size = detector_num*detector_width;	//< calculate a head size according to detector number and width
+	
+	// gap angel bwtween adjacent heads
 	float gap_angle = 360./head_num-2*atan(head_size/dis_head)*180./PI;
+	// center to center distance between adjacent detectors, for arrange detector and head  
 	float detector_interval = detector_width;
+	// radial sampling interval
 	float xrSamplingInterval_mm = xrSampling_mm;
 
-
-	totalDetectorNum = detector_num*head_num;
+	totalDetectorNum = detector_num*head_num;	//< total number of detectors about input parameter system.
 	
-	rtheta = 180.f / (detector_num*head_num/2);
+	rtheta = 180.f / (detector_num*head_num/2);	//< why ?
+	// total view number that 0 to 179 degree interval rtheta
 	int totalAngleViewNum = num_yr(detector_num, head_num);
 	printf("# of angle view : %d\n", totalAngleViewNum);
 
+	// to save file
 	FILE* fileID;	///< variable for save file 
-	polPoint* LORs = (polPoint*)calloc(detector_num*detector_num*(head_num - 3)*head_num, sizeof(polPoint));	///< variable to save LOR's polar coordinate 
-	head* heads = (head*)calloc(head_num, sizeof(head));	///< variable to save heads 
+	fileID = fopen("detector_LORs.txt", "w");
+
+	// Porlar coordinate, projection domain coodinate pari structure composed by radial and theta
+	polPoint* LORs = (polPoint*)calloc(detector_num*detector_num*(head_num - 3)*head_num, sizeof(polPoint));	//< Each head is in coincidence with five opposing head. 
+	// Cartesian coordiante, BackProjection domain, image domain
+	head* heads = (head*)calloc(head_num, sizeof(head));	//< variable to save heads position
 	for (int i = 0; i < head_num; i++) {
-		heads[i].det = (carPoint*)calloc(detector_num, sizeof(carPoint));	///< variable to save totalDetectorNum cartesian coordinate
+		heads[i].det = (carPoint*)calloc(detector_num, sizeof(carPoint));	//< variable to save totalDetectorNum cartesian coordinate
 	}
 
 	/////////////////////////////////////////////////////////////////////
-	/// collocation detection	
+	//> collocation detection	
 	for (int i = 0; i < detector_num; i++) {
 		heads[0].det[i].x = 0 + (detector_interval / 2.) + i*detector_interval - head_size / 2.;
 		heads[0].det[i].y = dis_head / 2.;
@@ -179,11 +210,14 @@ void gap_sino(int head_num, float detector_width, float xrSampling_mm, int detec
 		}
 	}
 	/////////////////////////////////////////////////////////////////////
-	fileID = fopen("detector_LORs.txt", "w");
+	
 	/////////////////////////////////////////////////////////////////////
-	// calculate LORs
+	//> calculate LORs
+	// to save LORs index
 	int index = 0;	///< variable for LORs number index
+	// variable to check distance about selected LOR
 	float maxRadial = 0.;	///< to check maximum radial distance
+	// variable to check angle about selected LOR
 	float maxTheta = 0.;	///< to check maximum theta angle
 	for (int i = 0; i < head_num; i++) {
 		for (int j = 0; j < head_num - 3; j++) {
@@ -245,7 +279,7 @@ void gap_sino(int head_num, float detector_width, float xrSampling_mm, int detec
 			int tmpRadial = temp + (xrNum - 1) / 2;
 			*(sinogram + xrNum*int(tmpTheta) + tmpRadial) = 1;
 		}*/
-		int tmpRadial = temp + round(xrNum / 2 +0.5);
+		int tmpRadial = int(temp) + round(xrNum / 2 +0.5);
 		*(sinogram + xrNum*int(tmpTheta) + tmpRadial) = 1;
 		fprintf(fileID, "%d,%d\n", (int)temp, int(tmpTheta));
 	}fclose(fileID);

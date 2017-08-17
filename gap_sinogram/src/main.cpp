@@ -26,7 +26,19 @@ int main(int argc, char* argv[])
 
 	//gap_sino(20, 4, 2, 17, 800, "20hn_55unders_800d_4dw_2xr_9dn_564FOV_LR(282).s");
 	//gap_sino(36, 4, 2, 10, 800, "20hn_55unders_800d_4dw_2xr_9dn_564FOV_LR(282).s");
-	gap_sino(4, 4, 4, 2, 12, "samples.s");
+	//gap_sino(4, 4, 4, 2, 12, "samples.s");
+	
+	/**
+	*
+	* HRRT System, 
+	*
+	* 8 head
+	* 9 blocks per head
+	* 8 detector per block
+	* head to head distance 46.9
+	*/
+	gap_sino(8, 2.3, 4.6, 8 * 9, 469, "hrrt.s");
+
 
 	stop = clock();
 	t = (double)(stop - start);
