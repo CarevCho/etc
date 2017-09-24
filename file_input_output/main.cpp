@@ -9,7 +9,7 @@ using namespace std;
 // file write
 int main(int argc, char* argv[])
 {
-#if 0
+#if 1
 	/// cpp
 	ofstream outfile("output.txt");
 
