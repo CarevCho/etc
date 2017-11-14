@@ -47,7 +47,7 @@ int main(int argc, char* argv[])
 
 		
 		a = (pow(center.x - p_head.x, 2) - pow(radius, 2));
-		b = (center.x - p_head.x)*(p_head.y - center.y);
+		b = 2*(center.x - p_head.x)*(p_head.y - center.y);
 		c = pow(p_head.y - center.y, 2) - pow(radius, 2);
 		if (b*b - a*c >= 0) {
 			if (a == 0) {
