@@ -33,8 +33,27 @@ double ch_rotate(double angle, double x, double y ,bool return_type = true, doub
 	return result;
 }
 
+double ch_intersection(double angle, double value_x,double value_y, bool return_type = true) 
+{
+	double result = 0.;
+
+	if (return_type) {
+		// return x compoent of intersection
+		// define f(x)
+
+	}
+	else {
+		// return y compoent of intersection
+		// define f(x)
+
+	}
+	return result;
+}
+
+
 int main(int argc, char* argv[]) 
 {
+	/*
 	double x = 0.;
 	double y = 2.;
 
@@ -42,7 +61,29 @@ int main(int argc, char* argv[])
 	double rotated_y = ch_rotate(-0, x, y, false,0,1);
 
 	cout << rotated_x << "," << rotated_y << endl;
+	*/
 
+	double x = 0.;
+	double y = 0.;
+
+	// x^2 + y^2 = 10^2
+
+	// atan return -pi/2 ~ pi/2
+	// atan2 return -pi ~ pi, selected
+	double diff_x, diff_y;
+	diff_x = 1; diff_y = 1/2.;
+	double angle = atan2(diff_y,diff_x);
+
+	angle = angle / 3.14159265359 * 180.;
+	if (angle < 0) 
+		angle += 180;
+	angle = angle * 3.14159265359 / 180.;
+	double gradient = tan(angle);
+	angle = angle / 3.14159265359 * 180.;
+
+	cout << gradient << "," << angle << endl;
+
+	
 	return 0;
 }
 
