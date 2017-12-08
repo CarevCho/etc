@@ -1,0 +1,9 @@
+﻿  udp_server.cpp
+d:\code\etc\ex_udp\src\udp_server.cpp(23): warning C4309: 'initializing': truncation of constant value
+d:\code\etc\ex_udp\src\udp_server.cpp(37): warning C4996: 'inet_addr': Use inet_pton() or InetPton() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\winsock2.h(1830): note: see declaration of 'inet_addr'
+d:\code\etc\ex_udp\src\udp_server.cpp(79): warning C4996: 'inet_ntoa': Use inet_ntop() or InetNtop() instead or define _WINSOCK_DEPRECATED_NO_WARNINGS to disable deprecated API warnings
+  c:\program files (x86)\windows kits\10\include\10.0.15063.0\um\winsock2.h(1848): note: see declaration of 'inet_ntoa'
+d:\code\etc\ex_udp\src\udp_server.cpp(20): warning C4101: 'Count': unreferenced local variable
+  ex_udp.vcxproj -> D:\code\etc\ex_udp\Debug\ex_udp.exe
+  ex_udp.vcxproj -> D:\code\etc\ex_udp\Debug\ex_udp.pdb (Partial PDB)
