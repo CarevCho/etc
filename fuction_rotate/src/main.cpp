@@ -3,6 +3,28 @@
 using namespace std;
 
 /**
+* degree to radian transformation
+*
+* @brief : convert degree unit to radian unit
+* @param degree : to be converted degree value
+*/
+double ch_DtoR(double degree)
+{
+	return degree * 3.14159265359 / 180.;
+}
+
+/**
+* radian to degree transformation
+*
+* @brief : convert radian unit to degree unit
+* @param degree : to be converted radian value
+*/
+double ch_RtoD(double radian)
+{
+	return radian / 3.14159265359 * 180.;
+}
+
+/**
 * rotate point with specific angle
 *
 * @brief : rotate point from origin(0. , 0.) to specific angle and return x component
@@ -13,10 +35,10 @@ using namespace std;
 * @param origin_x : rotating axis x component. default is 0.
 * @param origin_y : rotating axis y component. default is 0.
 */
-double ch_rotate(double angle, double x, double y ,bool return_type = true, double origin_x = 0., double origin_y = 0.)
+double ch_rotate(double angle, double x, double y, bool return_type = true, double origin_x = 0., double origin_y = 0.)
 {
 	double result = 0.;
-	double radian = angle * 3.14159265359 / 180.;
+	double radian = ch_DtoR(angle);
 	double rotate_matrix[2][2];
 	rotate_matrix[0][0] = cos(radian); rotate_matrix[0][1] = -sin(radian);
 	rotate_matrix[1][0] = sin(radian); rotate_matrix[1][1] = cos(radian);
@@ -29,31 +51,14 @@ double ch_rotate(double angle, double x, double y ,bool return_type = true, doub
 		// return rotated angle y component
 		result = (x - origin_x)*rotate_matrix[0][1] + (y - origin_y)*rotate_matrix[1][1] + origin_y;
 	}
-	
+
 	return result;
 }
-
-double ch_intersection(double angle, double value_x,double value_y, bool return_type = true) 
-{
-	double result = 0.;
-
-	if (return_type) {
-		// return x compoent of intersection
-		// define f(x)
-
-	}
-	else {
-		// return y compoent of intersection
-		// define f(x)
-
-	}
-	return result;
-}
-
 
 int main(int argc, char* argv[]) 
 {
 	/*
+	// rotate function test
 	double x = 0.;
 	double y = 2.;
 
@@ -63,27 +68,21 @@ int main(int argc, char* argv[])
 	cout << rotated_x << "," << rotated_y << endl;
 	*/
 
-	double x = 0.;
-	double y = 0.;
-
-	// x^2 + y^2 = 10^2
-
-	// atan return -pi/2 ~ pi/2
-	// atan2 return -pi ~ pi, selected
-	double diff_x, diff_y;
-	diff_x = 1; diff_y = 1/2.;
-	double angle = atan2(diff_y,diff_x);
-
-	angle = angle / 3.14159265359 * 180.;
-	if (angle < 0) 
-		angle += 180;
-	angle = angle * 3.14159265359 / 180.;
-	double gradient = tan(angle);
-	angle = angle / 3.14159265359 * 180.;
-
-	cout << gradient << "," << angle << endl;
-
+	double capsule_head_x, capsule_head_y;	// capsule head point
+	double capsule_fov_left_x, capsule_fov_left_y, capsule_fov_right_x, capsule_fov_right_y;	// capsule fov dimension left to right point
+	double capsule_width, capsule_diameter;	// capsule component
+	double capsule_fov_angle, capsule_working_distance;	// capsule component
+	capsule_fov_angle = 90.; capsule_working_distance = 1.;
+	capsule_head_x = 1.; capsule_head_y = 2.;
+	capsule_width = 2.; capsule_diameter = 3.;
 	
+	double gradient = tan(ch_DtoR(90 - capsule_fov_angle / 2.));
+	capsule_fov_right_y = capsule_head_y + capsule_working_distance;
+	capsule_fov_right_x = (gradient*capsule_head_x - capsule_head_y + capsule_fov_right_y) / gradient;
+	gradient = tan(ch_DtoR(90 + capsule_fov_angle / 2.));
+	capsule_fov_left_y = capsule_head_y + capsule_working_distance;
+	capsule_fov_left_x = (gradient*capsule_head_x - capsule_head_y + capsule_fov_right_y) / gradient;
+
 	return 0;
 }
 
