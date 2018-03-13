@@ -36,3 +36,5 @@
 /ex_console_opencv/Debug
 /ex_console_opencv/Release
 /ex_console_opencv/x64
+/ex_console_opencv_webcam/Debug
+/ex_console_opencv_webcam/.vs/ex_console_opencv_webcam/v14
