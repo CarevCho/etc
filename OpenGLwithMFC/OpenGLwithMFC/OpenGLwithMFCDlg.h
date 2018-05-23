@@ -5,16 +5,18 @@
 #pragma once
 
 // including OpenGL header
-#include "GL\glew.h"
-#include "GL\wglew.h"
-#include "freeglut.h"
+//#include "freeglut.h"
 //#include "freeglut_ext.h"
 #include "afxwin.h"
+#include <GL\glew.h>
+#include <GL\wglew.h>
+#include <GL\freeglut.h>
 
 // add to be used library
-#pragma comment(lib, "freeglut.lib")
 //#pragma comment(lib, "OpenGL32.lib")
+
 #pragma comment(lib, "glew32.lib")
+#pragma comment(lib, "freeglut.lib")
 
 // COpenGLwithMFCDlg 대화 상자
 class COpenGLwithMFCDlg : public CDialogEx
